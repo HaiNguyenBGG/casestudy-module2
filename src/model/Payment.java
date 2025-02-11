@@ -3,42 +3,83 @@ package model;
 import java.io.Serializable;
 
 public class Payment implements Serializable {
-    private int orderId;
-    private String method;
-    private boolean isPaid;
+    private int id;
+    private Order order;
+    private double amount;
+    private String paymentMethod;
+    private String status;
 
-    public Payment(int orderId, String method, boolean isPaid) {
-        this.orderId = orderId;
-        this.method = method;
-        this.isPaid = isPaid;
+    public static final String STATUS_PENDING = "Chưa thanh toán";
+    public static final String STATUS_PAID = "Đã thanh toán";
+    public static final String STATUS_REFUNDED = "Đã hoàn tiền";
+
+    public Payment(int id, Order order, double amount, String paymentMethod) {
+        this.id = id;
+        this.order = order;
+        this.amount = amount;
+        this.paymentMethod = paymentMethod;
+        this.status = STATUS_PENDING;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public int getId() {
+        return id;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getMethod() {
-        return method;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setMethod(String method) {
-        this.method = method;
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("❌ Số tiền không thể nhỏ hơn 0!");
+        }
+        this.amount = amount;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        if (status.equals(STATUS_PENDING) || status.equals(STATUS_PAID) || status.equals(STATUS_REFUNDED)) {
+            this.status = status;
+        } else {
+            throw new IllegalArgumentException("Trạng thái không hợp lệ! Chỉ được nhập: Chưa thanh toán, Đã thanh toán, Đã hoàn tiền.");
+        }
     }
 
     public boolean isPaid() {
-        return isPaid;
-    }
-
-    public void setPaid(boolean paid) {
-        isPaid = paid;
+        return status.equals(STATUS_PAID);
     }
 
     @Override
     public String toString() {
-        return "Payment{" + "orderId=" + orderId + ", method='" + method + "', isPaid=" + isPaid + "}";
+        return "Payment{" +
+                "ID=" + id +
+                ", Đơn hàng ID=" + order.getId() +
+                ", Số tiền=" + amount +
+                ", Phương thức='" + paymentMethod + '\'' +
+                ", Trạng thái='" + status + '\'' +
+                '}';
     }
 }

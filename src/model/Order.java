@@ -9,13 +9,17 @@ public class Order implements Serializable {
     private List<OrderDetail> orderDetails;
     private double totalPrice;
     private String orderDate;
+    private Payment payment;
+    private Shipping shipping;
 
-    public Order(int id, Customer customer, List<OrderDetail> orderDetails, String orderDate) {
+    public Order(int id, Customer customer, List<OrderDetail> orderDetails, String orderDate, Payment payment, Shipping shipping) {
         this.id = id;
         this.customer = customer;
         this.orderDetails = orderDetails;
-        this.totalPrice = calculateTotalPrice();
         this.orderDate = orderDate;
+        this.payment = payment;
+        this.shipping = shipping;
+        this.totalPrice = calculateTotalPrice();
     }
 
     private double calculateTotalPrice() {
@@ -44,14 +48,11 @@ public class Order implements Serializable {
 
     public void setOrderDetails(List<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
+        this.totalPrice = calculateTotalPrice();
     }
 
     public double getTotalPrice() {
         return totalPrice;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
     }
 
     public String getOrderDate() {
@@ -62,8 +63,31 @@ public class Order implements Serializable {
         this.orderDate = orderDate;
     }
 
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
+    public Shipping getShipping() {
+        return shipping;
+    }
+
+    public void setShipping(Shipping shipping) {
+        this.shipping = shipping;
+    }
+
     @Override
     public String toString() {
-        return "Order{" + "id=" + id + ", customer=" + customer + ", totalPrice=" + totalPrice + ", orderDate='" + orderDate + "'}";
+        return "Order { ID=" + id +
+                ", Khách hàng=" + customer.getName() +
+                ", Tổng tiền=" + totalPrice +
+                ", Ngày đặt hàng='" + orderDate + '\'' +
+                ", Thanh toán=" + (payment.isPaid() ? "Đã thanh toán" : "Chưa thanh toán") +
+                ", Giao hàng=" + shipping.getStatus() +
+                ", Địa chỉ giao hàng='" + shipping.getAddress() + '\'' +
+                " }";
     }
 }
