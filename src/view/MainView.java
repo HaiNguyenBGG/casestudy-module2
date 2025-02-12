@@ -1,22 +1,26 @@
 package view;
 
-import manager.ProductManager;
+import manager.CustomerManager;
 
 import model.Customer;
 
 public class MainView {
     public static void main(String[] args) {
-        ProductManager productManager = new ProductManager();
+        CustomerManager customerManager = new CustomerManager();
 
-        // Thêm sản phẩm mới
-        productManager.addProduct(1, "Bánh ChocoPie", 20000, 50);
-        productManager.addProduct(2, "Sữa Vinamilk", 30000, 30);
+        // Thêm khách hàng mới
+        customerManager.addCustomer(1, "Nguyễn Văn A", "nguyenvana@gmail.com", "0123456789");
+        customerManager.addCustomer(2, "Trần Thị B", "tranthib@gmail.com", "0987654321");
 
-        // Xem danh sách sản phẩm
-        productManager.viewProducts();
+        // In danh sách khách hàng
+        System.out.println("📌 Danh sách khách hàng:");
+        customerManager.getAllCustomers().forEach(System.out::println);
 
-        // Xóa sản phẩm
-        productManager.removeProduct(1);
-        productManager.viewProducts();
+        // Xóa khách hàng
+        customerManager.removeCustomer(1);
+
+        // In lại danh sách
+        System.out.println("📌 Danh sách sau khi xóa:");
+        customerManager.getAllCustomers().forEach(System.out::println);
     }
 }

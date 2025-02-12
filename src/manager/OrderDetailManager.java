@@ -1,43 +1,47 @@
 package manager;
 
+import storage.dao.OrderDetailDAO;
 import storage.impl.OrderDetailDAOImpl;
 import model.OrderDetail;
+import model.Order;
 import model.Product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDetailManager {
-    private List<OrderDetail> orderDetails;
-    private final OrderDetailDAOImpl orderDetailDAO = new OrderDetailDAOImpl();
+    private final List<OrderDetail> orderDetails;
+    private final OrderDetailDAO orderDetailDAO = new OrderDetailDAOImpl();
 
     public OrderDetailManager() {
-        this.orderDetails = orderDetailDAO.getAll();
+        this.orderDetails = new ArrayList<>(orderDetailDAO.loadOrderDetails());
     }
 
-    public void addOrderDetail(int id, int orderId, Product product, int quantity, double price) {
-        OrderDetail orderDetail = new OrderDetail(id, orderId, product, quantity, price);
+    public void addOrderDetail(int id, Order order, Product product, int quantity) {
+        OrderDetail orderDetail = new OrderDetail(id, order, product, quantity);
+        order.addOrderDetail(orderDetail);  // ✅ Cập nhật Order
         orderDetails.add(orderDetail);
-        orderDetailDAO.saveOrderDetails();
-        orderDetailDAO.saveOrderDetailsToCSV();
-        System.out.println("Chi tiết đơn hàng đã được thêm thành công!");
+        orderDetailDAO.saveOrderDetails(orderDetails);
+        System.out.println("✅ Đã thêm chi tiết đơn hàng và cập nhật tổng giá trị đơn hàng.");
     }
 
-    public OrderDetail getOrderDetailById(int id) {
-        return orderDetails.stream().filter(od -> od.getId() == id).findFirst().orElse(null);
-    }
+    public void removeOrderDetail(int id) {
+        OrderDetail orderDetail = orderDetails.stream()
+                .filter(od -> od.getId() == id)
+                .findFirst()
+                .orElse(null);
 
-    public void viewOrderDetails() {
-        if (orderDetails.isEmpty()) {
-            System.out.println("Không có chi tiết đơn hàng nào.");
+        if (orderDetail != null) {
+            orderDetail.getOrder().removeOrderDetail(id);  // ✅ Xóa khỏi Order
+            orderDetails.remove(orderDetail);
+            orderDetailDAO.saveOrderDetails(orderDetails);
+            System.out.println("✅ Chi tiết đơn hàng đã được xóa và tổng giá trị cập nhật.");
         } else {
-            orderDetails.forEach(System.out::println);
+            System.out.println("⚠ Không tìm thấy chi tiết đơn hàng.");
         }
     }
 
-    public void deleteOrderDetail(int id) {
-        orderDetails.removeIf(od -> od.getId() == id);
-        orderDetailDAO.saveOrderDetails();
-        orderDetailDAO.saveOrderDetailsToCSV();
-        System.out.println("Chi tiết đơn hàng đã được xóa!");
+    public List<OrderDetail> getAllOrderDetails() {
+        return orderDetails;
     }
 }

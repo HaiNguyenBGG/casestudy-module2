@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b2ce8bc6-bb35-4d80-bc7f-257675deefea" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/manager/CustomerManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/manager/OrderManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/manager/ProductManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/model/Customer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/model/Order.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/model/OrderDetail.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/model/Payment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/model/Product.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/model/Shipping.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/storage/dao/CustomerDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/storage/dao/OrderDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/storage/dao/OrderDetailDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/storage/dao/ProductDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/storage/fileHandler/BinaryHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/storage/fileHandler/CSVHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/storage/impl/CustomerDAOImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/storage/impl/OrderDAOImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/storage/impl/OrderDetailDAOImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/storage/impl/ProductDAOImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/storage/utils/AutoSaveService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/storage/utils/LogService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/view/CustomerView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/view/MainView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/view/OrderView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/store-management/view/ProductView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/manager/CustomerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/manager/CustomerManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/manager/OrderDetailManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/manager/OrderDetailManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/manager/OrderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/manager/OrderManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/manager/ProductManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/manager/ProductManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/storage/dao/CustomerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/storage/dao/CustomerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/storage/dao/OrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/storage/dao/OrderDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/storage/dao/OrderDetailDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/storage/dao/OrderDetailDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/storage/dao/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/storage/dao/ProductDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/storage/impl/CustomerDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/storage/impl/CustomerDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/storage/impl/OrderDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/storage/impl/OrderDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/storage/impl/OrderDetailDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/storage/impl/OrderDetailDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/storage/impl/ProductDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/storage/impl/ProductDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainView.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2sscpp4WWg10aZaLWhTFkUj62un" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "com.codeium.enabled": "true",
+    "jdk.selected.JAVA_MODULE": "19",
+    "last_opened_file_path": "C:/Users/ACER/Downloads/junit-jupiter-engine-5.12.0-RC1.jar",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15429688",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b2ce8bc6-bb35-4d80-bc7f-257675deefea" name="Changes" comment="" />
+      <created>1739247909537</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1739247909537</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

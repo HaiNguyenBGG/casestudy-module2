@@ -1,7 +1,7 @@
 package storage.impl;
 
-import storage.fileHandler.BinaryHandler;
-import storage.fileHandler.CSVHandler;
+import fileHandler.BinaryHandler;
+import fileHandler.CSVHandler;
 import model.Order;
 import model.Customer;
 import storage.dao.OrderDAO;

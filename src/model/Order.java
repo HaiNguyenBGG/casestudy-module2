@@ -75,4 +75,17 @@ public class Order extends Transaction implements Serializable {
                 ", Địa chỉ giao hàng='" + shipping.getAddress() + '\'' +
                 " }";
     }
+
+    public double getTotalPrice() {
+        return getTotalPrice();
+    }
+
+    public void addOrderDetail(OrderDetail orderDetail) {
+        orderDetails.add(orderDetail);
+        this.amount = calculateTotalPrice(orderDetails);
+    }
+
+    public void removeOrderDetail(int id) {
+        orderDetails.removeIf(od -> od.getId() == id);
+    }
 }

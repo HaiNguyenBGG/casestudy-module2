@@ -13,7 +13,7 @@ import java.util.List;
 
 public class OrderManager {
     private List<Order> orders;
-    private final OrderDAO orderDAO = new OrderDAOImpl();
+    private final OrderDAO orderDAO = new OrderDAOImpl(); // ✅ Gọi DAO để quản lý dữ liệu
 
     public OrderManager() {
         this.orders = new ArrayList<>(orderDAO.loadOrders());
@@ -23,13 +23,13 @@ public class OrderManager {
         Order order = new Order(id, customer, orderDetails, orderDate, payment, shipping);
         orders.add(order);
         orderDAO.saveOrders(orders);
-        System.out.println("Đơn hàng đã được tạo và lưu vào file.");
+        System.out.println("✅ Đơn hàng đã được tạo và lưu vào file.");
     }
 
     public void removeOrder(int id) {
         orders.removeIf(o -> o.getId() == id);
         orderDAO.saveOrders(orders);
-        System.out.println("Đơn hàng đã được xóa!");
+        System.out.println("✅ Đơn hàng đã được xóa!");
     }
 
     public List<Order> getAllOrders() {
