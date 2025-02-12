@@ -4,7 +4,10 @@ import manager.CustomerManager;
 import manager.OrderDetailManager;
 import manager.OrderManager;
 import manager.ProductManager;
+import storage.dao.OrderDAO;
+import storage.impl.OrderDAOImpl;
 import model.*;
+
 import java.util.List;
 
 public class StoreFacade {
@@ -13,6 +16,8 @@ public class StoreFacade {
     private final OrderManager orderManager;
     private final OrderDetailManager orderDetailManager;
     private final ProductManager productManager;
+    private final OrderDAO orderDAO = new OrderDAOImpl();
+
 
     private StoreFacade() {
         this.customerManager = new CustomerManager();
@@ -47,6 +52,7 @@ public class StoreFacade {
     public void viewProducts() {
         productManager.viewProducts();
     }
+
     public List<Product> getAllProducts() {
         return productManager.getAllProducts();
     }
@@ -61,5 +67,9 @@ public class StoreFacade {
 
     public List<Order> getAllOrders() {
         return orderManager.getAllOrders();
+    }
+
+    public void updateOrder(Order order) {
+        orderDAO.updateOrder(order);
     }
 }

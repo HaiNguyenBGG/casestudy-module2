@@ -7,13 +7,14 @@ import model.Customer;
 import model.OrderDetail;
 import model.Payment;
 import model.Shipping;
+import storage.utils.LogService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderManager {
     private List<Order> orders;
-    private final OrderDAO orderDAO = new OrderDAOImpl(); // ✅ Gọi DAO để quản lý dữ liệu
+    private final OrderDAO orderDAO = new OrderDAOImpl();
 
     public OrderManager() {
         this.orders = new ArrayList<>(orderDAO.loadOrders());
@@ -23,16 +24,27 @@ public class OrderManager {
         Order order = new Order(id, customer, orderDetails, orderDate, payment, shipping);
         orders.add(order);
         orderDAO.saveOrders(orders);
-        System.out.println("✅ Đơn hàng đã được tạo và lưu vào file.");
+        System.out.println("Đơn hàng đã được tạo và lưu vào file.");
     }
 
     public void removeOrder(int id) {
-        orders.removeIf(o -> o.getId() == id);
-        orderDAO.saveOrders(orders);
-        System.out.println("✅ Đơn hàng đã được xóa!");
+        Order order = orders.stream().filter(o -> o.getId() == id).findFirst().orElse(null);
+        if (order != null) {
+            orders.remove(order);
+            orderDAO.saveOrders(orders);
+
+            // ✅ Ghi log khi đơn hàng bị xóa
+            LogService.log("Đã xóa đơn hàng ID: " + id + " của khách hàng: " + order.getCustomer().getName());
+        } else {
+            System.out.println("Không tìm thấy đơn hàng!");
+        }
     }
 
     public List<Order> getAllOrders() {
         return orders;
+    }
+
+    public void saveOrders() {
+        orderDAO.saveOrders(orders);
     }
 }

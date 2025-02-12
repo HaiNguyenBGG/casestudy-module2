@@ -22,7 +22,7 @@ public class ProductManager {
         productDAO.saveProducts(products);
         System.out.println("Đã thêm sản phẩm và lưu vào file.");
 
-        LogService.log("Đã thêm sản phẩm: " + product.getName() + " | Giá: " + price + " | Số lượng: " + stock);
+        LogService.log("🛒 Đã thêm sản phẩm: " + product.getName() + " | Giá: " + price + " | Số lượng: " + stock);
     }
 
     public void viewProducts() {

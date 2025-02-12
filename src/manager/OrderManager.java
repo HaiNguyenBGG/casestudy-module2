@@ -7,6 +7,7 @@ import model.Customer;
 import model.OrderDetail;
 import model.Payment;
 import model.Shipping;
+import storage.utils.LogService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +28,22 @@ public class OrderManager {
     }
 
     public void removeOrder(int id) {
-        orders.removeIf(o -> o.getId() == id);
-        orderDAO.saveOrders(orders);
-        System.out.println("Đơn hàng đã được xóa!");
+        Order order = orders.stream().filter(o -> o.getId() == id).findFirst().orElse(null);
+        if (order != null) {
+            orders.remove(order);
+            orderDAO.saveOrders(orders);
+
+            LogService.log("Đã xóa đơn hàng ID: " + id + " của khách hàng: " + order.getCustomer().getName());
+        } else {
+            System.out.println("Không tìm thấy đơn hàng!");
+        }
     }
 
     public List<Order> getAllOrders() {
         return orders;
+    }
+
+    public void saveOrders() {
+        orderDAO.saveOrders(orders);
     }
 }

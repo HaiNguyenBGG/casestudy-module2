@@ -17,6 +17,7 @@ public class OrderView {
             System.out.println("1. Tạo đơn hàng");
             System.out.println("2. Xóa đơn hàng");
             System.out.println("3. Hiển thị danh sách đơn hàng");
+            System.out.println("4. Sửa đơn hàng");
             System.out.println("0. Thoát");
             System.out.print("Chọn chức năng: ");
             int choice = scanner.nextInt();
@@ -26,6 +27,7 @@ public class OrderView {
                 case 1 -> createOrder();
                 case 2 -> removeOrder();
                 case 3 -> displayOrders();
+                case 4 -> editOrder();
                 case 0 -> {
                     System.out.println("Thoát chương trình.");
                     return;
@@ -34,6 +36,56 @@ public class OrderView {
             }
         }
     }
+
+    private void editOrder() {
+        System.out.print("Nhập ID đơn hàng cần sửa: ");
+        int orderId = scanner.nextInt();
+        scanner.nextLine();
+
+        Order order = storeFacade.getAllOrders().stream()
+                .filter(o -> o.getId() == orderId)
+                .findFirst()
+                .orElse(null);
+
+        if (order == null) {
+            System.out.println("Không tìm thấy đơn hàng!");
+            return;
+        }
+
+        System.out.println("Đơn hàng hiện tại:");
+        System.out.println(order);
+
+        System.out.print("Nhập ID sản phẩm cần sửa: ");
+        int productId = scanner.nextInt();
+        scanner.nextLine();
+
+        OrderDetail orderDetail = order.getOrderDetails().stream()
+                .filter(od -> od.getProduct().getId() == productId)
+                .findFirst()
+                .orElse(null);
+
+        if (orderDetail == null) {
+            System.out.println("Không tìm thấy sản phẩm trong đơn hàng!");
+            return;
+        }
+
+        System.out.print("Nhập số lượng mới: ");
+        int newQuantity = scanner.nextInt();
+        scanner.nextLine();
+
+        if (newQuantity <= 0) {
+            System.out.println("Số lượng phải lớn hơn 0!");
+            return;
+        }
+
+        orderDetail.setQuantity(newQuantity);
+        order.setOrderDetails(order.getOrderDetails());
+
+        storeFacade.updateOrder(order);
+
+        System.out.println("Đơn hàng đã được cập nhật!");
+    }
+
 
     private void createOrder() {
         System.out.print("Nhập ID đơn hàng: ");
@@ -76,11 +128,11 @@ public class OrderView {
             scanner.nextLine();
 
             if (product.getStock() < quantity) {
-                System.out.println("❌ Không đủ hàng trong kho! Số lượng còn lại: " + product.getStock());
+                System.out.println("Không đủ hàng trong kho! Số lượng còn lại: " + product.getStock());
                 continue;
             }
 
-            product.decreaseStock(quantity);  // ✅ Trừ số lượng trong kho
+            product.decreaseStock(quantity);
             orderDetails.add(new OrderDetail(productId, null, product, quantity));
         }
 
@@ -104,13 +156,13 @@ public class OrderView {
         int id = scanner.nextInt();
         scanner.nextLine();
         storeFacade.removeOrder(id);
-        System.out.println("✅ Đơn hàng đã được xóa thành công!");
+        System.out.println("Đơn hàng đã được xóa thành công!");
     }
 
     private void displayOrders() {
         List<Order> orders = storeFacade.getAllOrders();
         if (orders.isEmpty()) {
-            System.out.println("⚠ Không có đơn hàng nào trong hệ thống.");
+            System.out.println("Không có đơn hàng nào trong hệ thống.");
         } else {
             orders.forEach(System.out::println);
         }

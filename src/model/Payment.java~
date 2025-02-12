@@ -43,6 +43,7 @@ public class Payment extends Transaction implements Serializable {
         if (status.equals(STATUS_PENDING) || status.equals(STATUS_PAID)) {
             this.status = status;
 
+            // ✅ Ghi log khi trạng thái thanh toán thay đổi
             LogService.log("Đơn hàng ID " + order.getId() + " đã cập nhật trạng thái thanh toán: " + status);
         } else {
             throw new IllegalArgumentException("Trạng thái không hợp lệ!");

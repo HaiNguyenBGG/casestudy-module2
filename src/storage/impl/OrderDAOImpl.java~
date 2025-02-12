@@ -1,7 +1,7 @@
 package storage.impl;
 
-import fileHandler.BinaryHandler;
-import fileHandler.CSVHandler;
+import storage.fileHandler.BinaryHandler;
+import storage.fileHandler.CSVHandler;
 import model.Order;
 import model.Customer;
 import storage.dao.OrderDAO;
@@ -48,4 +48,17 @@ public class OrderDAOImpl implements OrderDAO {
                 .findFirst()
                 .orElse(null);
     }
+
+    @Override
+    public void updateOrder(Order order) {
+        List<Order> orders = loadOrders();
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getId() == order.getId()) {
+                orders.set(i, order); // ✅ Cập nhật đơn hàng
+                break;
+            }
+        }
+        saveOrders(orders);
+    }
+
 }

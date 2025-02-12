@@ -1,31 +1,30 @@
 package view;
 
 import facade.StoreFacade;
-import model.*;
+import model.Customer;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class OrderView {
+public class CustomerView {
     private final StoreFacade storeFacade = StoreFacade.getInstance();
     private final Scanner scanner = new Scanner(System.in);
 
     public void showMenu() {
         while (true) {
-            System.out.println("\n===== Quản lý Đơn Hàng =====");
-            System.out.println("1. Tạo đơn hàng");
-            System.out.println("2. Xóa đơn hàng");
-            System.out.println("3. Hiển thị danh sách đơn hàng");
+            System.out.println("\n===== Quản lý Khách Hàng =====");
+            System.out.println("1. Thêm khách hàng");
+            System.out.println("2. Xóa khách hàng");
+            System.out.println("3. Hiển thị danh sách khách hàng");
             System.out.println("0. Thoát");
             System.out.print("Chọn chức năng: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
 
             switch (choice) {
-                case 1 -> createOrder();
-                case 2 -> removeOrder();
-                case 3 -> displayOrders();
+                case 1 -> addCustomer();
+                case 2 -> removeCustomer();
+                case 3 -> displayCustomers();
                 case 0 -> {
                     System.out.println("Thoát chương trình.");
                     return;
@@ -35,62 +34,35 @@ public class OrderView {
         }
     }
 
-    private void createOrder() {
-        System.out.print("Nhập ID đơn hàng: ");
+    private void addCustomer() {
+        System.out.print("Nhập ID: ");
         int id = scanner.nextInt();
         scanner.nextLine();
+        System.out.print("Nhập tên: ");
+        String name = scanner.nextLine();
+        System.out.print("Nhập email: ");
+        String email = scanner.nextLine();
+        System.out.print("Nhập số điện thoại: ");
+        String phone = scanner.nextLine();
 
-        System.out.print("Nhập ID khách hàng: ");
-        int customerId = scanner.nextInt();
-        scanner.nextLine();
-        Customer customer = storeFacade.getAllCustomers().stream()
-                .filter(c -> c.getId() == customerId)
-                .findFirst()
-                .orElse(null);
-        if (customer == null) {
-            System.out.println("❌ Không tìm thấy khách hàng!");
-            return;
-        }
-
-        List<OrderDetail> orderDetails = new ArrayList<>();
-        while (true) {
-            System.out.print("Nhập ID sản phẩm (0 để dừng): ");
-            int productId = scanner.nextInt();
-            scanner.nextLine();
-            if (productId == 0) break;
-
-            Product product = new Product(productId, "Sản phẩm", 100.0, 10);
-            System.out.print("Nhập số lượng: ");
-            int quantity = scanner.nextInt();
-            scanner.nextLine();
-
-            orderDetails.add(new OrderDetail(productId, null, product, quantity));
-        }
-
-        System.out.print("Nhập ngày đặt hàng (yyyy-MM-dd): ");
-        String orderDate = scanner.nextLine();
-
-        Payment payment = new Payment(id, null, 0, "Chuyển khoản");
-        Shipping shipping = new Shipping(id, null, "Địa chỉ", "2025-02-15");
-
-        storeFacade.createOrder(id, customer, orderDetails, orderDate, payment, shipping);
-        System.out.println("✅ Đơn hàng đã được tạo thành công!");
+        storeFacade.addCustomer(id, name, email, phone);
+        System.out.println("✅ Thêm khách hàng thành công!");
     }
 
-    private void removeOrder() {
-        System.out.print("Nhập ID đơn hàng cần xóa: ");
+    private void removeCustomer() {
+        System.out.print("Nhập ID khách hàng cần xóa: ");
         int id = scanner.nextInt();
         scanner.nextLine();
-        storeFacade.removeOrder(id);
-        System.out.println("✅ Đơn hàng đã được xóa thành công!");
+        storeFacade.removeCustomer(id);
+        System.out.println("✅ Xóa khách hàng thành công!");
     }
 
-    private void displayOrders() {
-        List<Order> orders = storeFacade.getAllOrders();
-        if (orders.isEmpty()) {
-            System.out.println("⚠ Không có đơn hàng nào trong hệ thống.");
+    private void displayCustomers() {
+        List<Customer> customers = storeFacade.getAllCustomers();
+        if (customers.isEmpty()) {
+            System.out.println("⚠ Không có khách hàng nào trong hệ thống.");
         } else {
-            orders.forEach(System.out::println);
+            customers.forEach(System.out::println);
         }
     }
 }

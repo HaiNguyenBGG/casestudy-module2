@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import manager.CustomerManager;
 import manager.ProductManager;
+import storage.utils.LogService;
 
 public class MainView {
     private final StoreFacade storeFacade = StoreFacade.getInstance();

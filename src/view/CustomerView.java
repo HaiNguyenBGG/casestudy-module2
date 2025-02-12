@@ -46,7 +46,7 @@ public class CustomerView {
         String phone = scanner.nextLine();
 
         storeFacade.addCustomer(id, name, email, phone);
-        System.out.println("✅ Thêm khách hàng thành công!");
+        System.out.println("Thêm khách hàng thành công!");
     }
 
     private void removeCustomer() {
@@ -54,13 +54,13 @@ public class CustomerView {
         int id = scanner.nextInt();
         scanner.nextLine();
         storeFacade.removeCustomer(id);
-        System.out.println("✅ Xóa khách hàng thành công!");
+        System.out.println("Xóa khách hàng thành công!");
     }
 
     private void displayCustomers() {
         List<Customer> customers = storeFacade.getAllCustomers();
         if (customers.isEmpty()) {
-            System.out.println("⚠ Không có khách hàng nào trong hệ thống.");
+            System.out.println("Không có khách hàng nào trong hệ thống.");
         } else {
             customers.forEach(System.out::println);
         }

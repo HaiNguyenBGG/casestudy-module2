@@ -48,4 +48,17 @@ public class OrderDAOImpl implements OrderDAO {
                 .findFirst()
                 .orElse(null);
     }
+
+    @Override
+    public void updateOrder(Order order) {
+        List<Order> orders = loadOrders();
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getId() == order.getId()) {
+                orders.set(i, order);
+                break;
+            }
+        }
+        saveOrders(orders);
+    }
+
 }
