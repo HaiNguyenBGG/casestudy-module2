@@ -15,6 +15,10 @@ public class OrderDetail implements Serializable {
         this.subtotal = calculateSubtotal();
     }
 
+    public OrderDetail(int id, int orderId, Product product, int quantity, double price) {
+
+    }
+
     private double calculateSubtotal() {
         return product.getPrice() * quantity;
     }
@@ -29,6 +33,10 @@ public class OrderDetail implements Serializable {
 
     public Product getProduct() {
         return product;
+    }
+
+    public int getId() {
+        return 0;
     }
 
     public void setProduct(Product product) {
@@ -54,11 +62,6 @@ public class OrderDetail implements Serializable {
 
     @Override
     public String toString() {
-        return "OrderDetail{" +
-                "Order ID=" + order.getId() +
-                ", Product=" + product.getName() +
-                ", Quantity=" + quantity +
-                ", Subtotal=" + subtotal +
-                '}';
+        return "OrderDetail{" + "Order ID=" + order.getId() + ", Product=" + product.getName() + ", Quantity=" + quantity + ", Subtotal=" + subtotal + '}';
     }
 }

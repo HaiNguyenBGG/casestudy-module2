@@ -25,14 +25,14 @@ public class CustomerManager {
         }
 
         customers.add(new Customer(id, name, email, phone));
-        customerDAO.saveCustomers();
+        customerDAO.saveCustomers(); // Không truyền tham số nữa
         customerDAO.saveCustomersToCSV();
         System.out.println("Khách hàng đã được thêm thành công!");
     }
 
     public void removeCustomer(int id) {
         customers.removeIf(c -> c.getId() == id);
-        customerDAO.saveCustomers();
+        customerDAO.saveCustomers(); // Không truyền tham số nữa
         customerDAO.saveCustomersToCSV();
         System.out.println("Khách hàng đã được xóa!");
     }
