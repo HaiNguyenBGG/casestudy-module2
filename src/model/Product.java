@@ -2,25 +2,16 @@ package model;
 
 import java.io.Serializable;
 
-public class Product implements Serializable {
-    private int id;
+public class Product extends BaseEntity implements Serializable {
     private String name;
     private double price;
     private int stock;
 
     public Product(int id, String name, double price, int stock) {
-        this.id = id;
+        super(id);  // ✅ Gọi constructor của BaseEntity để set id
         this.name = name;
         this.price = price;
         this.stock = stock;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

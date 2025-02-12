@@ -2,66 +2,50 @@ package model;
 
 import java.io.Serializable;
 
-public class OrderDetail implements Serializable {
+public class OrderDetail extends BaseEntity implements Serializable {
     private Order order;
     private Product product;
     private int quantity;
     private double subtotal;
 
-    public OrderDetail(Order order, Product product, int quantity) {
+    public OrderDetail(int id, Order order, Product product, int quantity) {
+        super(id);
         this.order = order;
         this.product = product;
         this.quantity = quantity;
         this.subtotal = calculateSubtotal();
-    }
-
-    public OrderDetail(int id, int orderId, Product product, int quantity, double price) {
-
     }
 
     private double calculateSubtotal() {
         return product.getPrice() * quantity;
     }
 
-    public Order getOrder() {
-        return order;
-    }
+    public Order getOrder() { return order; }
+    public void setOrder(Order order) { this.order = order; }
 
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public int getId() {
-        return 0;
-    }
-
+    public Product getProduct() { return product; }
     public void setProduct(Product product) {
         this.product = product;
         this.subtotal = calculateSubtotal();
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
+    public int getQuantity() { return quantity; }
     public void setQuantity(int quantity) {
         if (quantity <= 0) {
-            throw new IllegalArgumentException("Số lượng phải lớn hơn 0!");
+            throw new IllegalArgumentException("❌ Số lượng phải lớn hơn 0!");
         }
         this.quantity = quantity;
         this.subtotal = calculateSubtotal();
     }
 
-    public double getSubtotal() {
-        return subtotal;
-    }
+    public double getSubtotal() { return subtotal; }
 
     @Override
     public String toString() {
-        return "OrderDetail{" + "Order ID=" + order.getId() + ", Product=" + product.getName() + ", Quantity=" + quantity + ", Subtotal=" + subtotal + '}';
+        return "OrderDetail { ID=" + id +
+                ", Order ID=" + order.getId() +
+                ", Product=" + product.getName() +
+                ", Quantity=" + quantity +
+                ", Subtotal=" + subtotal + " }";
     }
 }

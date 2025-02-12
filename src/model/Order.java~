@@ -23,46 +23,23 @@ public class Order extends Transaction implements Serializable {
         return orderDetails.stream().mapToDouble(OrderDetail::getSubtotal).sum();
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
+    public Customer getCustomer() { return customer; }
+    public void setCustomer(Customer customer) { this.customer = customer; }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public List<OrderDetail> getOrderDetails() {
-        return orderDetails;
-    }
-
+    public List<OrderDetail> getOrderDetails() { return orderDetails; }
     public void setOrderDetails(List<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
         this.amount = calculateTotalPrice(orderDetails);
     }
 
-    public String getOrderDate() {
-        return orderDate;
-    }
+    public String getOrderDate() { return orderDate; }
+    public void setOrderDate(String orderDate) { this.orderDate = orderDate; }
 
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
-    }
+    public Payment getPayment() { return payment; }
+    public void setPayment(Payment payment) { this.payment = payment; }
 
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
-    }
-
-    public Shipping getShipping() {
-        return shipping;
-    }
-
-    public void setShipping(Shipping shipping) {
-        this.shipping = shipping;
-    }
+    public Shipping getShipping() { return shipping; }
+    public void setShipping(Shipping shipping) { this.shipping = shipping; }
 
     @Override
     public String toString() {
