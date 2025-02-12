@@ -28,4 +28,11 @@ public class ProductManager {
             products.forEach(System.out::println);
         }
     }
+    public Product getProductById(int id) {
+        return products.stream().filter(p -> p.getId() == id).findFirst().orElse(null);
+    }
+
+    public List<Product> getAllProducts() {
+        return new ArrayList<>(products);
+    }
 }

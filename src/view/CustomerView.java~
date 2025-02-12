@@ -43,14 +43,12 @@ public class OrderView {
         System.out.print("Nhập ID khách hàng: ");
         int customerId = scanner.nextInt();
         scanner.nextLine();
-
         Customer customer = storeFacade.getAllCustomers().stream()
                 .filter(c -> c.getId() == customerId)
                 .findFirst()
                 .orElse(null);
-
         if (customer == null) {
-            System.out.println("Không tìm thấy khách hàng!");
+            System.out.println("❌ Không tìm thấy khách hàng!");
             return;
         }
 
@@ -61,42 +59,22 @@ public class OrderView {
             scanner.nextLine();
             if (productId == 0) break;
 
-            Product product = storeFacade.getAllProducts().stream()
-                    .filter(p -> p.getId() == productId)
-                    .findFirst()
-                    .orElse(null);
-
-            if (product == null) {
-                System.out.println("Không tìm thấy sản phẩm với ID: " + productId);
-                continue;
-            }
-
+            Product product = new Product(productId, "Sản phẩm", 100.0, 10);
             System.out.print("Nhập số lượng: ");
             int quantity = scanner.nextInt();
             scanner.nextLine();
 
-            if (product.getStock() < quantity) {
-                System.out.println("❌ Không đủ hàng trong kho! Số lượng còn lại: " + product.getStock());
-                continue;
-            }
-
-            product.decreaseStock(quantity);  // ✅ Trừ số lượng trong kho
             orderDetails.add(new OrderDetail(productId, null, product, quantity));
         }
 
         System.out.print("Nhập ngày đặt hàng (yyyy-MM-dd): ");
         String orderDate = scanner.nextLine();
 
-        System.out.print("Nhập phương thức thanh toán (Tiền mặt/Chuyển khoản): ");
-        String paymentMethod = scanner.nextLine();
-        Payment payment = new Payment(id, null, orderDetails.stream().mapToDouble(OrderDetail::getSubtotal).sum(), paymentMethod);
-
-        System.out.print("Nhập địa chỉ giao hàng: ");
-        String shippingAddress = scanner.nextLine();
-        Shipping shipping = new Shipping(id, null, shippingAddress, "Đang chuẩn bị");
+        Payment payment = new Payment(id, null, 0, "Chuyển khoản");
+        Shipping shipping = new Shipping(id, null, "Địa chỉ", "2025-02-15");
 
         storeFacade.createOrder(id, customer, orderDetails, orderDate, payment, shipping);
-        System.out.println("Đơn hàng đã được tạo thành công!");
+        System.out.println("✅ Đơn hàng đã được tạo thành công!");
     }
 
     private void removeOrder() {

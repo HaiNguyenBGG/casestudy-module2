@@ -47,6 +47,9 @@ public class StoreFacade {
     public void viewProducts() {
         productManager.viewProducts();
     }
+    public List<Product> getAllProducts() {
+        return productManager.getAllProducts();
+    }
 
     public void createOrder(int id, Customer customer, List<OrderDetail> orderDetails, String orderDate, Payment payment, Shipping shipping) {
         orderManager.createOrder(id, customer, orderDetails, orderDate, payment, shipping);

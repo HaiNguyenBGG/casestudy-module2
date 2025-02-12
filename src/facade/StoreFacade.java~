@@ -5,20 +5,27 @@ import manager.OrderDetailManager;
 import manager.OrderManager;
 import manager.ProductManager;
 import model.*;
-
 import java.util.List;
 
 public class StoreFacade {
+    private static StoreFacade instance;
     private final CustomerManager customerManager;
     private final OrderManager orderManager;
     private final OrderDetailManager orderDetailManager;
     private final ProductManager productManager;
 
-    public StoreFacade() {
+    private StoreFacade() {
         this.customerManager = new CustomerManager();
         this.orderManager = new OrderManager();
         this.orderDetailManager = new OrderDetailManager();
         this.productManager = new ProductManager();
+    }
+
+    public static synchronized StoreFacade getInstance() {
+        if (instance == null) {
+            instance = new StoreFacade();
+        }
+        return instance;
     }
 
     public void addCustomer(int id, String name, String email, String phone) {
@@ -51,17 +58,5 @@ public class StoreFacade {
 
     public List<Order> getAllOrders() {
         return orderManager.getAllOrders();
-    }
-
-    public void addOrderDetail(int id, Order order, Product product, int quantity) {
-        orderDetailManager.addOrderDetail(id, order, product, quantity);
-    }
-
-    public void removeOrderDetail(int id) {
-        orderDetailManager.removeOrderDetail(id);
-    }
-
-    public List<OrderDetail> getAllOrderDetails() {
-        return orderDetailManager.getAllOrderDetails();
     }
 }

@@ -10,6 +10,19 @@ public abstract class Transaction extends BaseEntity {
         this.status = status;
     }
 
-    public double getAmount() { return amount; }
-    public String getStatus() { return status; }
+    public double getAmount() {
+        return amount;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

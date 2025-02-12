@@ -1,4 +1,4 @@
 package view;
 
-public class ProductsView {
+public class ProductView {
 }

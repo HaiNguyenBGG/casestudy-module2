@@ -42,10 +42,10 @@ public class OrderDetail extends BaseEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "OrderDetail { ID=" + id +
-                ", Order ID=" + order.getId() +
-                ", Product=" + product.getName() +
-                ", Quantity=" + quantity +
-                ", Subtotal=" + subtotal + " }";
+        return "Sản phẩm: " + (product != null ? product.getName() : "Không xác định") +
+                " | ID: " + product.getId() +
+                " | Số lượng: " + quantity +
+                " | Giá/SP: " + product.getPrice() +
+                " | Tổng: " + subtotal;
     }
 }

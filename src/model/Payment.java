@@ -3,30 +3,45 @@ package model;
 import java.io.Serializable;
 
 public class Payment extends Transaction implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Order order;
     private String paymentMethod;
 
     public static final String STATUS_PENDING = "Chưa thanh toán";
     public static final String STATUS_PAID = "Đã thanh toán";
-    public static final String STATUS_REFUNDED = "Đã hoàn tiền";
 
     public Payment(int id, Order order, double amount, String paymentMethod) {
-        super(id, amount, STATUS_PENDING);
+        super(id, amount, determineStatus(paymentMethod));
         this.order = order;
         this.paymentMethod = paymentMethod;
     }
 
-    public Order getOrder() { return order; }
-    public void setOrder(Order order) { this.order = order; }
+    private static String determineStatus(String paymentMethod) {
+        return paymentMethod.equalsIgnoreCase("Chuyển khoản") ? STATUS_PAID : STATUS_PENDING;
+    }
 
-    public String getPaymentMethod() { return paymentMethod; }
-    public void setPaymentMethod(String paymentMethod) { this.paymentMethod = paymentMethod; }
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+        this.status = determineStatus(paymentMethod);
+    }
 
     public void setStatus(String status) {
-        if (status.equals(STATUS_PENDING) || status.equals(STATUS_PAID) || status.equals(STATUS_REFUNDED)) {
+        if (status.equals(STATUS_PENDING) || status.equals(STATUS_PAID)) {
             this.status = status;
         } else {
-            throw new IllegalArgumentException("Trạng thái không hợp lệ! Chỉ được nhập: Chưa thanh toán, Đã thanh toán, Đã hoàn tiền.");
+            throw new IllegalArgumentException("Trạng thái không hợp lệ! Chỉ có: Chưa thanh toán, Đã thanh toán.");
         }
     }
 
@@ -36,12 +51,10 @@ public class Payment extends Transaction implements Serializable {
 
     @Override
     public String toString() {
-        return "Payment{" +
-                "ID=" + id +
-                ", Đơn hàng ID=" + order.getId() +
-                ", Số tiền=" + amount +
-                ", Phương thức='" + paymentMethod + '\'' +
-                ", Trạng thái='" + status + '\'' +
-                '}';
+        return "Thanh toán: " +
+                "Đơn hàng ID=" + order.getId() +
+                " | Số tiền=" + amount +
+                " | Phương thức='" + paymentMethod + '\'' +
+                " | Trạng thái='" + status + '\'';
     }
 }

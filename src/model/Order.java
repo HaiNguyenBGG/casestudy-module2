@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Order extends Transaction implements Serializable {
     private Customer customer;
@@ -66,18 +67,27 @@ public class Order extends Transaction implements Serializable {
 
     @Override
     public String toString() {
-        return "Order { ID=" + id +
-                ", Khách hàng=" + customer.getName() +
-                ", Tổng tiền=" + amount +
-                ", Ngày đặt hàng='" + orderDate + '\'' +
-                ", Thanh toán=" + (payment.isPaid() ? "Đã thanh toán" : "Chưa thanh toán") +
-                ", Giao hàng=" + shipping.getStatus() +
-                ", Địa chỉ giao hàng='" + shipping.getAddress() + '\'' +
-                " }";
+        String orderDetailsStr = orderDetails.stream()
+                .map(od -> "Sản phẩm: " + (od.getProduct() != null ? od.getProduct().getName() : "Không xác định") +
+                        " | ID: " + od.getProduct().getId() +
+                        " | Số lượng: " + od.getQuantity() +
+                        " | Giá/SP: " + od.getProduct().getPrice() +
+                        " | Tổng: " + od.getSubtotal())
+                .collect(Collectors.joining("\n"));
+
+        return "\nĐơn hàng ID: " + id +
+                "\nKhách hàng: " + customer.getName() +
+                "\nNgày đặt hàng: " + orderDate +
+                "\n" + orderDetailsStr +
+                "\nTổng tiền: " + amount +
+                "\nThanh toán: " + (payment.isPaid() ? "Đã thanh toán" : "Chưa thanh toán") +
+                "\nTrạng thái giao hàng: " + shipping.getStatus() +
+                "\nĐịa chỉ giao hàng: " + shipping.getAddress() +
+                "\n──────────────────────────────";
     }
 
     public double getTotalPrice() {
-        return getTotalPrice();
+        return this.amount;
     }
 
     public void addOrderDetail(OrderDetail orderDetail) {
