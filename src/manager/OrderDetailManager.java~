@@ -19,7 +19,7 @@ public class OrderDetailManager {
 
     public void addOrderDetail(int id, Order order, Product product, int quantity) {
         OrderDetail orderDetail = new OrderDetail(id, order, product, quantity);
-        order.addOrderDetail(orderDetail);  // ✅ Cập nhật Order
+        order.addOrderDetail(orderDetail);
         orderDetails.add(orderDetail);
         orderDetailDAO.saveOrderDetails(orderDetails);
         System.out.println("Đã thêm chi tiết đơn hàng và cập nhật tổng giá trị đơn hàng.");

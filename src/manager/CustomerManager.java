@@ -28,7 +28,7 @@ public class CustomerManager {
         }
         customers.add(new Customer(id, name, email, phone));
         customerDAO.saveCustomers(customers);
-        System.out.println("Đã thêm khách hàng và lưu vào file.");
+//        System.out.println("Đã thêm khách hàng và lưu vào file.");
     }
 
     public void removeCustomer(int id) {

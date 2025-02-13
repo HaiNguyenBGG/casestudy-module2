@@ -40,4 +40,8 @@ public class CustomerManager {
     public List<Customer> getAllCustomers() {
         return customers;
     }
+
+    public void saveCustomers() {
+        customerDAO.saveCustomers(customers);
+    }
 }

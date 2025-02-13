@@ -12,7 +12,7 @@ public class CSVHandler {
             for (T item : data) {
                 writer.write(toCSVFormat.apply(item) + "\n");
             }
-//            System.out.println("Đã lưu dữ liệu vào CSV: " + filePath);
+            System.out.println("Đã lưu dữ liệu vào CSV: " + filePath);
         } catch (IOException e) {
             e.printStackTrace();
         }

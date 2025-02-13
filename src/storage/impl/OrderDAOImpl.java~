@@ -54,7 +54,7 @@ public class OrderDAOImpl implements OrderDAO {
         List<Order> orders = loadOrders();
         for (int i = 0; i < orders.size(); i++) {
             if (orders.get(i).getId() == order.getId()) {
-                orders.set(i, order); // ✅ Cập nhật đơn hàng
+                orders.set(i, order);
                 break;
             }
         }

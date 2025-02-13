@@ -20,7 +20,7 @@ public class ProductManager {
         Product product = new Product(id, name, price, stock);
         products.add(product);
         productDAO.saveProducts(products);
-        System.out.println("Đã thêm sản phẩm và lưu vào file.");
+//        System.out.println("Đã thêm sản phẩm và lưu vào file.");
 
         LogService.log("Đã thêm sản phẩm: " + product.getName() + " | Giá: " + price + " | Số lượng: " + stock);
     }

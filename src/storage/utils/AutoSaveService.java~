@@ -30,15 +30,15 @@ public class AutoSaveService {
     }
 
     private void saveData() {
-//        System.out.println("Đang tự động lưu dữ liệu...");
+        System.out.println("Đang tự động lưu dữ liệu...");
         orderManager.saveOrders();
         customerManager.saveCustomers();
         productManager.saveProducts();
-//        System.out.println("Dữ liệu đã được lưu tự động.");
+        System.out.println("Dữ liệu đã được lưu tự động.");
     }
 
     public void stopAutoSave() {
         timer.cancel();
-//        System.out.println("Đã dừng tự động lưu.");
+        System.out.println("Đã dừng tự động lưu.");
     }
 }

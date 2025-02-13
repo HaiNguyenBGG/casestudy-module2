@@ -8,8 +8,8 @@ import model.Product;
 import storage.dao.OrderDetailDAO;
 import storage.dao.OrderDAO;
 import storage.dao.ProductDAO;
-import storage.impl.OrderDAOImpl;
-import storage.impl.ProductDAOImpl;
+//import storage.impl.OrderDAOImpl;
+//import storage.impl.ProductDAOImpl;
 
 import java.util.List;
 import java.util.Collections;

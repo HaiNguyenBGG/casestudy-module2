@@ -22,7 +22,7 @@ public class OrderDetailManager {
         order.addOrderDetail(orderDetail);
         orderDetails.add(orderDetail);
         orderDetailDAO.saveOrderDetails(orderDetails);
-        System.out.println("Đã thêm chi tiết đơn hàng và cập nhật tổng giá trị đơn hàng.");
+//        System.out.println("Đã thêm chi tiết đơn hàng và cập nhật tổng giá trị đơn hàng.");
     }
 
     public void removeOrderDetail(int id) {

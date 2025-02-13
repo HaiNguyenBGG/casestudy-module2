@@ -24,7 +24,7 @@ public class OrderManager {
         Order order = new Order(id, customer, orderDetails, orderDate, payment, shipping);
         orders.add(order);
         orderDAO.saveOrders(orders);
-        System.out.println("Đơn hàng đã được tạo và lưu vào file.");
+//        System.out.println("Đơn hàng đã được tạo và lưu vào file.");
     }
 
     public void removeOrder(int id) {

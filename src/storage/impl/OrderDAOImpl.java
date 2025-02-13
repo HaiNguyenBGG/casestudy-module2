@@ -6,7 +6,7 @@ import model.Order;
 import model.Customer;
 import storage.dao.OrderDAO;
 import storage.dao.CustomerDAO;
-import storage.impl.CustomerDAOImpl;
+//import storage.impl.CustomerDAOImpl;
 
 import java.util.List;
 import java.util.Collections;

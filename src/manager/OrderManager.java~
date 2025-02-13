@@ -33,7 +33,6 @@ public class OrderManager {
             orders.remove(order);
             orderDAO.saveOrders(orders);
 
-            // ✅ Ghi log khi đơn hàng bị xóa
             LogService.log("Đã xóa đơn hàng ID: " + id + " của khách hàng: " + order.getCustomer().getName());
         } else {
             System.out.println("Không tìm thấy đơn hàng!");
