@@ -16,6 +16,9 @@ public class OrderDetailManager {
     public OrderDetailManager() {
         this.orderDetails = new ArrayList<>(orderDetailDAO.loadOrderDetails());
     }
+    public void saveOrderDetails() {
+        orderDetailDAO.saveOrderDetails(orderDetails);
+    }
 
     public void addOrderDetail(int id, Order order, Product product, int quantity) {
         OrderDetail orderDetail = new OrderDetail(id, order, product, quantity);
@@ -40,7 +43,17 @@ public class OrderDetailManager {
             System.out.println("Không tìm thấy chi tiết đơn hàng.");
         }
     }
-
+    public void updateOrderDetail(OrderDetail orderDetail) {
+        for (int i = 0; i < orderDetails.size(); i++) {
+            if (orderDetails.get(i).getId() == orderDetail.getId()) {
+                orderDetails.set(i, orderDetail);
+                orderDetailDAO.saveOrderDetails(orderDetails);
+                System.out.println("Đã cập nhật chi tiết đơn hàng.");
+                return;
+            }
+        }
+        System.out.println("Không tìm thấy chi tiết đơn hàng cần cập nhật.");
+    }
     public List<OrderDetail> getAllOrderDetails() {
         return orderDetails;
     }

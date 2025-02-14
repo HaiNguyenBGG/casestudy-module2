@@ -16,7 +16,7 @@ public class CustomerView {
             System.out.println("1. Thêm khách hàng");
             System.out.println("2. Xóa khách hàng");
             System.out.println("3. Hiển thị danh sách khách hàng");
-            System.out.println("0. Thoát");
+            System.out.println("0. Quay lại");
             System.out.print("Chọn chức năng: ");
             int choice = scanner.nextInt();
             scanner.nextLine();

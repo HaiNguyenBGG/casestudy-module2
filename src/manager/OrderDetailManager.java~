@@ -16,13 +16,16 @@ public class OrderDetailManager {
     public OrderDetailManager() {
         this.orderDetails = new ArrayList<>(orderDetailDAO.loadOrderDetails());
     }
+    public void saveOrderDetails() {
+        orderDetailDAO.saveOrderDetails(orderDetails);
+    }
 
     public void addOrderDetail(int id, Order order, Product product, int quantity) {
         OrderDetail orderDetail = new OrderDetail(id, order, product, quantity);
         order.addOrderDetail(orderDetail);
         orderDetails.add(orderDetail);
         orderDetailDAO.saveOrderDetails(orderDetails);
-        System.out.println("Đã thêm chi tiết đơn hàng và cập nhật tổng giá trị đơn hàng.");
+//        System.out.println("Đã thêm chi tiết đơn hàng và cập nhật tổng giá trị đơn hàng.");
     }
 
     public void removeOrderDetail(int id) {
@@ -40,7 +43,18 @@ public class OrderDetailManager {
             System.out.println("Không tìm thấy chi tiết đơn hàng.");
         }
     }
-
+    public void updateOrderDetail(int id, Order order, Product product, int quantity) {
+        OrderDetail orderDetail = orderDetails.stream()
+                .filter(od -> od.getId() == id)
+                .findFirst()
+                .orElse(null);
+        orderDetail.setOrder(order);
+        orderDetail.setProduct(product);
+        orderDetail.setQuantity(quantity);
+        orderDetail.setSubtotal(orderDetail.calculateSubtotal());
+        orderDetailDAO.saveOrderDetails(orderDetails);
+        System.out.println("Chi tiết đơn hàng được cập nhật.");
+    }
     public List<OrderDetail> getAllOrderDetails() {
         return orderDetails;
     }

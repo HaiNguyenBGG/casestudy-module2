@@ -47,7 +47,7 @@ public class ProductView {
         scanner.nextLine();
 
         storeFacade.addProduct(id, name, price, stock);
-        System.out.println("✅ Sản phẩm đã được thêm thành công!");
+        System.out.println("Sản phẩm đã được thêm thành công!");
     }
 
     private void removeProduct() {
@@ -55,7 +55,7 @@ public class ProductView {
         int id = scanner.nextInt();
         scanner.nextLine();
         storeFacade.removeOrder(id);
-        System.out.println("✅ Sản phẩm đã được xóa thành công!");
+        System.out.println("Sản phẩm đã được xóa thành công!");
     }
 
     private void displayProducts() {

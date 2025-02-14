@@ -18,7 +18,7 @@ public class BinaryHandler {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
             data = (List<T>) ois.readObject();
         } catch (FileNotFoundException e) {
-            System.out.println("Chưa có dữ liệu trong file: " + filePath);
+//            System.out.println("Chưa có dữ liệu trong file: " + filePath);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

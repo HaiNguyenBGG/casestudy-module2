@@ -16,7 +16,7 @@ public class ProductView {
             System.out.println("1. Thêm sản phẩm");
             System.out.println("2. Xóa sản phẩm");
             System.out.println("3. Hiển thị danh sách sản phẩm");
-            System.out.println("0. Thoát");
+            System.out.println("0. Quay lại");
             System.out.print("Chọn chức năng: ");
             int choice = scanner.nextInt();
             scanner.nextLine();

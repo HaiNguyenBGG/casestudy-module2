@@ -7,7 +7,7 @@ public class BinaryHandler {
     public static <T> void writeToFile(String filePath, List<T> data) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
             oos.writeObject(data);
-            System.out.println("Đã lưu dữ liệu vào file Nhị phân: " + filePath);
+//            System.out.println("Đã lưu dữ liệu vào file Nhị phân: " + filePath);
         } catch (IOException e) {
             e.printStackTrace();
         }

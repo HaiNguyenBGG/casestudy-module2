@@ -49,7 +49,22 @@ public class MainView {
         AutoSaveService autoSaveService = new AutoSaveService(orderManager, customerManager, productManager);
         autoSaveService.startAutoSave();
 
+        LogService  logService = new LogService();
+        logService.log("Chương trình đã chạy.");
+
         MainView mainView = new MainView();
         mainView.showMenu();
+
+        ThreadMonitor.printActiveThreads();
+    }
+
+    public class ThreadMonitor {
+        public static void printActiveThreads() {
+            System.out.println("\n=== Danh sách luồng đang chạy ===");
+            for (Thread t : Thread.getAllStackTraces().keySet()) {
+                System.out.println("🧵 Thread Name: " + t.getName() + " | Trạng thái: " + t.getState());
+            }
+            System.out.println("==============================\n");
+        }
     }
 }

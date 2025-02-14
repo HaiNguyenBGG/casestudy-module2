@@ -20,27 +20,16 @@ public class OrderDetail extends BaseEntity implements Serializable {
         return product.getPrice() * quantity;
     }
 
-    public Order getOrder() {
-        return order;
-    }
+    public Order getOrder() { return order; }
+    public void setOrder(Order order) { this.order = order; }
 
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
+    public Product getProduct() { return product; }
     public void setProduct(Product product) {
         this.product = product;
         this.subtotal = calculateSubtotal();
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
+    public int getQuantity() { return quantity; }
     public void setQuantity(int quantity) {
         if (quantity <= 0) {
             throw new IllegalArgumentException("Số lượng phải lớn hơn 0!");
@@ -49,9 +38,7 @@ public class OrderDetail extends BaseEntity implements Serializable {
         this.subtotal = calculateSubtotal();
     }
 
-    public double getSubtotal() {
-        return subtotal;
-    }
+    public double getSubtotal() { return subtotal; }
 
     @Override
     public String toString() {

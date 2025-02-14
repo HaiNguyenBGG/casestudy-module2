@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import manager.CustomerManager;
 import manager.ProductManager;
+import storage.utils.LogService;
 
 public class MainView {
     private final StoreFacade storeFacade = StoreFacade.getInstance();
@@ -41,6 +42,7 @@ public class MainView {
     }
 
     public static void main(String[] args) {
+        ThreadMonitor.printActiveThreads();
         OrderManager orderManager = new OrderManager();
         CustomerManager customerManager = new CustomerManager();
         ProductManager productManager = new ProductManager();
@@ -48,7 +50,20 @@ public class MainView {
         AutoSaveService autoSaveService = new AutoSaveService(orderManager, customerManager, productManager);
         autoSaveService.startAutoSave();
 
+        LogService  logService = new LogService();
+        logService.log("Chương trình đã chạy.");
+
         MainView mainView = new MainView();
         mainView.showMenu();
+    }
+
+    public class ThreadMonitor {
+        public static void printActiveThreads() {
+            System.out.println("\n=== Danh sách luồng đang chạy ===");
+            for (Thread t : Thread.getAllStackTraces().keySet()) {
+                System.out.println("🧵 Thread Name: " + t.getName() + " | Trạng thái: " + t.getState());
+            }
+            System.out.println("==============================\n");
+        }
     }
 }
