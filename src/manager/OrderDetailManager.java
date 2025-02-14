@@ -8,6 +8,7 @@ import model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+//import java.util.NoSuchElementException;
 
 public class OrderDetailManager {
     private final List<OrderDetail> orderDetails;
@@ -16,6 +17,7 @@ public class OrderDetailManager {
     public OrderDetailManager() {
         this.orderDetails = new ArrayList<>(orderDetailDAO.loadOrderDetails());
     }
+
     public void saveOrderDetails() {
         orderDetailDAO.saveOrderDetails(orderDetails);
     }
@@ -33,7 +35,6 @@ public class OrderDetailManager {
                 .filter(od -> od.getId() == id)
                 .findFirst()
                 .orElse(null);
-
         if (orderDetail != null) {
             orderDetail.getOrder().removeOrderDetail(id);
             orderDetails.remove(orderDetail);
@@ -43,6 +44,7 @@ public class OrderDetailManager {
             System.out.println("Không tìm thấy chi tiết đơn hàng.");
         }
     }
+
     public void updateOrderDetail(OrderDetail orderDetail) {
         for (int i = 0; i < orderDetails.size(); i++) {
             if (orderDetails.get(i).getId() == orderDetail.getId()) {
@@ -54,6 +56,7 @@ public class OrderDetailManager {
         }
         System.out.println("Không tìm thấy chi tiết đơn hàng cần cập nhật.");
     }
+
     public List<OrderDetail> getAllOrderDetails() {
         return orderDetails;
     }

@@ -12,7 +12,6 @@ public class Shipping extends BaseEntity implements Serializable {
     public static final String STATUS_SHIPPING = "Đang giao";
     public static final String STATUS_DELIVERED = "Đã giao";
 
-    // Constructor
     public Shipping(int id, Order order, String address, String deliveryDate) {
         super(id);
         this.order = order;

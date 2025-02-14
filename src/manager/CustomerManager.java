@@ -6,6 +6,7 @@ import model.Customer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class CustomerManager {
@@ -19,16 +20,26 @@ public class CustomerManager {
         this.customers = new ArrayList<>(customerDAO.loadCustomers());
     }
 
-    public void addCustomer(int id, String name, String email, String phone) {
-        if (!Pattern.matches(EMAIL_REGEX, email)) {
-            throw new IllegalArgumentException("Email không hợp lệ!");
+    public void addCustomer(int id, String name) {
+        Scanner scanner = new Scanner(System.in);
+        String email, phone;
+
+        while (true) {
+            System.out.print("Nhập email: ");
+            email = scanner.nextLine().trim();
+            if (Pattern.matches(EMAIL_REGEX, email)) break;
+            System.out.println("Email không hợp lệ! Vui lòng nhập lại.");
         }
-        if (!Pattern.matches(PHONE_REGEX, phone)) {
-            throw new IllegalArgumentException("Số điện thoại không hợp lệ! Phải có 10 chữ số và bắt đầu bằng số 0.");
+
+        while (true) {
+            System.out.print("Nhập số điện thoại: ");
+            phone = scanner.nextLine().trim();
+            if (Pattern.matches(PHONE_REGEX, phone)) break;
+            System.out.println("Số điện thoại không hợp lệ! Vui lòng nhập lại.");
         }
+
         customers.add(new Customer(id, name, email, phone));
         customerDAO.saveCustomers(customers);
-//        System.out.println("Đã thêm khách hàng và lưu vào file.");
     }
 
     public void removeCustomer(int id) {

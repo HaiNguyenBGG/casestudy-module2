@@ -6,25 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="b2ce8bc6-bb35-4d80-bc7f-257675deefea" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/store-management/storage/fileHandler/BinaryHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/store-management/storage/fileHandler/BinaryHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/store-management/view/CustomerView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/store-management/view/CustomerView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/store-management/view/MainView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/store-management/view/MainView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/store-management/view/OrderView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/store-management/view/OrderView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/store-management/view/ProductView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/store-management/view/ProductView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/app.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/app.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/manager/CustomerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/manager/CustomerManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/manager/OrderDetailManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/manager/OrderDetailManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/BaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BaseEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/OrderDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/OrderDetail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/storage/dao/CustomerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/storage/dao/CustomerDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/storage/dao/OrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/storage/dao/OrderDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/storage/dao/OrderDetailDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/storage/dao/OrderDetailDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/storage/dao/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/storage/dao/ProductDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/storage/fileHandler/BinaryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/storage/fileHandler/BinaryHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/storage/impl/OrderDetailDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/storage/impl/OrderDetailDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/storage/utils/AutoSaveService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/storage/utils/AutoSaveService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Shipping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Shipping.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/CustomerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/CustomerView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/OrderView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/OrderView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/ProductView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ProductView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
