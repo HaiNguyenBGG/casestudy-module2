@@ -17,12 +17,21 @@ public class ProductManager {
     }
 
     public void addProduct(int id, String name, double price, int stock) {
-        Product product = new Product(id, name, price, stock);
-        products.add(product);
-        productDAO.saveProducts(products);
-//        System.out.println("Đã thêm sản phẩm và lưu vào file.");
+        try {
+            if (products.stream().anyMatch(p -> p.getId() == id)) {
+                throw new IllegalArgumentException("ID sản phẩm đã tồn tại! Hãy nhập ID khác.");
+            }
 
-        LogService.log("Đã thêm sản phẩm: " + product.getName() + " | Giá: " + price + " | Số lượng: " + stock);
+            Product product = new Product(id, name, price, stock);
+            products.add(product);
+            productDAO.saveProducts(products);
+
+            LogService.log("Đã thêm sản phẩm: " + product.getName() + " | Giá: " + price + " | Số lượng: " + stock);
+            System.out.println("Thêm sản phẩm thành công!");
+
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void viewProducts() {

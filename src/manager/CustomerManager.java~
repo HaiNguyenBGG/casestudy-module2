@@ -20,16 +20,26 @@ public class CustomerManager {
     }
 
     public void addCustomer(int id, String name, String email, String phone) {
-        if (!Pattern.matches(EMAIL_REGEX, email)) {
-            throw new IllegalArgumentException("Email không hợp lệ!");
+        try {
+            if (!Pattern.matches(EMAIL_REGEX, email)) {
+                throw new IllegalArgumentException("Email không hợp lệ!");
+            }
+            if (!Pattern.matches(PHONE_REGEX, phone)) {
+                throw new IllegalArgumentException("Số điện thoại không hợp lệ! Phải có 10 chữ số và bắt đầu bằng số 0.");
+            }
+
+            if (customers.stream().anyMatch(c -> c.getId() == id)) {
+                throw new IllegalArgumentException("ID khách hàng đã tồn tại!");
+            }
+
+            customers.add(new Customer(id, name, email, phone));
+            customerDAO.saveCustomers(customers);
+
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
-        if (!Pattern.matches(PHONE_REGEX, phone)) {
-            throw new IllegalArgumentException("Số điện thoại không hợp lệ! Phải có 10 chữ số và bắt đầu bằng số 0.");
-        }
-        customers.add(new Customer(id, name, email, phone));
-        customerDAO.saveCustomers(customers);
-//        System.out.println("Đã thêm khách hàng và lưu vào file.");
     }
+
 
     public void removeCustomer(int id) {
         customers.removeIf(c -> c.getId() == id);

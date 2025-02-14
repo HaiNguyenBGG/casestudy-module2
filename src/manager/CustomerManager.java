@@ -6,7 +6,6 @@ import model.Customer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class CustomerManager {
@@ -20,27 +19,25 @@ public class CustomerManager {
         this.customers = new ArrayList<>(customerDAO.loadCustomers());
     }
 
-    public void addCustomer(int id, String name) {
-        Scanner scanner = new Scanner(System.in);
-        String email, phone;
+    public void addCustomer(int id, String name, String email, String phone) {
+        try {
+            if (!Pattern.matches(EMAIL_REGEX, email)) {
+                throw new IllegalArgumentException("Email không hợp lệ!");
+            }
+            if (!Pattern.matches(PHONE_REGEX, phone)) {
+                throw new IllegalArgumentException("Số điện thoại không hợp lệ! Phải có 10 chữ số và bắt đầu bằng số 0.");
+            }
+            if (customers.stream().anyMatch(c -> c.getId() == id)) {
+                throw new IllegalArgumentException("ID khách hàng đã tồn tại!");
+            }
+            customers.add(new Customer(id, name, email, phone));
+            customerDAO.saveCustomers(customers);
 
-        while (true) {
-            System.out.print("Nhập email: ");
-            email = scanner.nextLine().trim();
-            if (Pattern.matches(EMAIL_REGEX, email)) break;
-            System.out.println("Email không hợp lệ! Vui lòng nhập lại.");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
-
-        while (true) {
-            System.out.print("Nhập số điện thoại: ");
-            phone = scanner.nextLine().trim();
-            if (Pattern.matches(PHONE_REGEX, phone)) break;
-            System.out.println("Số điện thoại không hợp lệ! Vui lòng nhập lại.");
-        }
-
-        customers.add(new Customer(id, name, email, phone));
-        customerDAO.saveCustomers(customers);
     }
+
 
     public void removeCustomer(int id) {
         customers.removeIf(c -> c.getId() == id);

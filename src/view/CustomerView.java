@@ -38,11 +38,6 @@ public class CustomerView {
         System.out.print("Nhập ID: ");
         int id = scanner.nextInt();
         scanner.nextLine();
-        List<Customer> customers = storeFacade.getAllCustomers();
-        if (customers.stream().anyMatch(c -> c.getId() == id)) {
-            System.out.println("ID khách hàng đã tồn tại! Vui lòng nhập ID khác.");
-            return;
-        }
         System.out.print("Nhập tên: ");
         String name = scanner.nextLine();
         System.out.print("Nhập email: ");

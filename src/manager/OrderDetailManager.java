@@ -5,10 +5,10 @@ import storage.impl.OrderDetailDAOImpl;
 import model.OrderDetail;
 import model.Order;
 import model.Product;
+import storage.utils.LogService;
 
 import java.util.ArrayList;
 import java.util.List;
-//import java.util.NoSuchElementException;
 
 public class OrderDetailManager {
     private final List<OrderDetail> orderDetails;
@@ -23,11 +23,23 @@ public class OrderDetailManager {
     }
 
     public void addOrderDetail(int id, Order order, Product product, int quantity) {
-        OrderDetail orderDetail = new OrderDetail(id, order, product, quantity);
-        order.addOrderDetail(orderDetail);
-        orderDetails.add(orderDetail);
-        orderDetailDAO.saveOrderDetails(orderDetails);
-//        System.out.println("Đã thêm chi tiết đơn hàng và cập nhật tổng giá trị đơn hàng.");
+        try {
+            if (orderDetails.stream().anyMatch(od -> od.getId() == id)) {
+                throw new IllegalArgumentException("ID chi tiết đơn hàng đã tồn tại! Hãy nhập ID khác.");
+            }
+            if (product.getStock() < quantity) {
+                throw new IllegalArgumentException("Không đủ hàng trong kho! Còn lại: " + product.getStock());
+            }
+            product.setStock(product.getStock() - quantity);
+            OrderDetail orderDetail = new OrderDetail(id, order, product, quantity);
+            order.addOrderDetail(orderDetail);
+            orderDetails.add(orderDetail);
+            orderDetailDAO.saveOrderDetails(orderDetails);
+
+            LogService.log("Đã thêm chi tiết đơn hàng: " + product.getName() + " | SL: " + quantity);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void removeOrderDetail(int id) {
