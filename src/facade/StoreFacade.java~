@@ -18,6 +18,7 @@ public class StoreFacade {
     private final ProductManager productManager;
     private final OrderDAO orderDAO = new OrderDAOImpl();
 
+
     private StoreFacade() {
         this.customerManager = new CustomerManager();
         this.orderManager = new OrderManager();
@@ -32,28 +33,24 @@ public class StoreFacade {
         return instance;
     }
 
-    public String addCustomer(int id, String name, String email, String phone) {
-        return customerManager.addCustomer(id, name, email, phone);
+    public void addCustomer(int id, String name, String email, String phone) {
+        customerManager.addCustomer(id, name, email, phone);
     }
 
-    public String removeCustomer(int id) {
-        return customerManager.removeCustomer(id);
+    public void removeCustomer(int id) {
+        customerManager.removeCustomer(id);
     }
 
     public List<Customer> getAllCustomers() {
         return customerManager.getAllCustomers();
     }
 
-    public boolean customerExists(int id) {
-        return customerManager.customerExists(id);
-    }
-
-    public Customer getCustomerById(int id) {
-        return customerManager.getCustomerById(id);
-    }
-
     public void addProduct(int id, String name, double price, int stock) {
         productManager.addProduct(id, name, price, stock);
+    }
+
+    public void viewProducts() {
+        productManager.viewProducts();
     }
 
     public List<Product> getAllProducts() {
@@ -74,5 +71,9 @@ public class StoreFacade {
 
     public void updateOrder(Order order) {
         orderDAO.updateOrder(order);
+    }
+
+    public boolean getCustomerById(int id) {
+        return customerManager.getCustomerById(id);
     }
 }

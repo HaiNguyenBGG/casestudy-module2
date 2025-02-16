@@ -2,7 +2,6 @@ package view;
 
 import facade.StoreFacade;
 import model.Customer;
-
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,9 +17,8 @@ public class CustomerView {
             System.out.println("3. Hiển thị danh sách khách hàng");
             System.out.println("0. Quay lại");
             System.out.print("Chọn chức năng: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
 
+            int choice = getIntInput();
             switch (choice) {
                 case 1 -> addCustomer();
                 case 2 -> removeCustomer();
@@ -29,32 +27,57 @@ public class CustomerView {
                     System.out.println("Thoát chương trình.");
                     return;
                 }
-                default -> System.out.println("Lựa chọn không hợp lệ!");
+                default -> System.out.println("Lựa chọn không hợp lệ! Vui lòng nhập lại.");
             }
         }
     }
 
     private void addCustomer() {
-        System.out.print("Nhập ID: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        System.out.print("Nhập tên: ");
-        String name = scanner.nextLine();
-        System.out.print("Nhập email: ");
-        String email = scanner.nextLine();
-        System.out.print("Nhập số điện thoại: ");
-        String phone = scanner.nextLine();
+        int id;
+        String name, email, phone;
 
-        storeFacade.addCustomer(id, name, email, phone);
-        System.out.println("Thêm khách hàng thành công!");
+        while (true) {
+            System.out.print("Nhập ID: ");
+            id = getIntInput();
+            if (!storeFacade.customerExists(id)) {
+                break;
+            }
+            System.out.println("ID đã tồn tại! Vui lòng nhập ID khác.");
+        }
+
+        System.out.print("Nhập tên: ");
+        name = scanner.nextLine();
+
+        System.out.print("Nhập email: ");
+        email = scanner.nextLine();
+
+        System.out.print("Nhập số điện thoại: ");
+        phone = scanner.nextLine();
+
+        String result = storeFacade.addCustomer(id, name, email, phone);
+        System.out.println(result);
     }
 
     private void removeCustomer() {
-        System.out.print("Nhập ID khách hàng cần xóa: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        storeFacade.removeCustomer(id);
-        System.out.println("Xóa khách hàng thành công!");
+        int id;
+        while (true) {
+            System.out.print("Nhập ID khách hàng cần xóa: ");
+            id = getIntInput();
+
+            if (storeFacade.customerExists(id)) {
+                break;
+            }
+            System.out.println("Không tìm thấy khách hàng có ID: " + id + ". Vui lòng nhập lại.");
+        }
+
+        System.out.print("Bạn có chắc chắn muốn xóa khách hàng này? (Y/N): ");
+        String confirm = scanner.nextLine().trim().toLowerCase();
+        if (confirm.equals("y")) {
+            String result = storeFacade.removeCustomer(id);
+            System.out.println(result);
+        } else {
+            System.out.println("Hủy xóa khách hàng.");
+        }
     }
 
     private void displayCustomers() {
@@ -62,7 +85,18 @@ public class CustomerView {
         if (customers.isEmpty()) {
             System.out.println("Không có khách hàng nào trong hệ thống.");
         } else {
+            System.out.println("\nDanh sách khách hàng:");
             customers.forEach(System.out::println);
+        }
+    }
+
+    private int getIntInput() {
+        while (true) {
+            try {
+                return Integer.parseInt(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.print("Lỗi: Vui lòng nhập số nguyên hợp lệ: ");
+            }
         }
     }
 }

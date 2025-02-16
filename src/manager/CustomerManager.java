@@ -19,36 +19,42 @@ public class CustomerManager {
         this.customers = new ArrayList<>(customerDAO.loadCustomers());
     }
 
-    public void addCustomer(int id, String name, String email, String phone) {
-        try {
-            if (!Pattern.matches(EMAIL_REGEX, email)) {
-                throw new IllegalArgumentException("Email không hợp lệ!");
-            }
-            if (!Pattern.matches(PHONE_REGEX, phone)) {
-                throw new IllegalArgumentException("Số điện thoại không hợp lệ! Phải có 10 chữ số và bắt đầu bằng số 0.");
-            }
-            if (customers.stream().anyMatch(c -> c.getId() == id)) {
-                throw new IllegalArgumentException("ID khách hàng đã tồn tại!");
-            }
-            customers.add(new Customer(id, name, email, phone));
-            customerDAO.saveCustomers(customers);
-
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+    public String addCustomer(int id, String name, String email, String phone) {
+        if (!Pattern.matches(EMAIL_REGEX, email)) {
+            return "Email không hợp lệ!";
         }
+        if (!Pattern.matches(PHONE_REGEX, phone)) {
+            return "Số điện thoại không hợp lệ! Phải có 10 chữ số và bắt đầu bằng số 0.";
+        }
+        if (customerExists(id)) {
+            return "ID khách hàng đã tồn tại!";
+        }
+        customers.add(new Customer(id, name, email, phone));
+        customerDAO.saveCustomers(customers);
+        return "Thêm khách hàng thành công!";
     }
 
-
-    public void removeCustomer(int id) {
-        customers.removeIf(c -> c.getId() == id);
+    public String removeCustomer(int id) {
+        Customer customer = getCustomerById(id);
+        if (customer == null) {
+            return "Không tìm thấy khách hàng với ID: " + id;
+        }
+        customers.remove(customer);
         customerDAO.saveCustomers(customers);
-        System.out.println("Khách hàng đã được xóa!");
+        return "Xóa khách hàng thành công!";
     }
 
     public List<Customer> getAllCustomers() {
-        return customers;
+        return new ArrayList<>(customers);
     }
 
+    public Customer getCustomerById(int id) {
+        return customers.stream().filter(c -> c.getId() == id).findFirst().orElse(null);
+    }
+
+    public boolean customerExists(int id) {
+        return customers.stream().anyMatch(c -> c.getId() == id);
+    }
     public void saveCustomers() {
         customerDAO.saveCustomers(customers);
     }
