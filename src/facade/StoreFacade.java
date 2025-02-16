@@ -75,4 +75,8 @@ public class StoreFacade {
     public void updateOrder(Order order) {
         orderDAO.updateOrder(order);
     }
+
+    public void viewProducts() {
+        productManager.viewProducts();
+    }
 }
