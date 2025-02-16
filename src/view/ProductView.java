@@ -18,9 +18,8 @@ public class ProductView {
             System.out.println("3. Hiển thị danh sách sản phẩm");
             System.out.println("0. Quay lại");
             System.out.print("Chọn chức năng: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
 
+            int choice = getIntInput();
             switch (choice) {
                 case 1 -> addProduct();
                 case 2 -> removeProduct();
@@ -29,36 +28,100 @@ public class ProductView {
                     System.out.println("Thoát chương trình.");
                     return;
                 }
-                default -> System.out.println("Lựa chọn không hợp lệ!");
+                default -> System.out.println("Lựa chọn không hợp lệ! Vui lòng nhập lại.");
             }
         }
     }
 
     private void addProduct() {
-        System.out.print("Nhập ID sản phẩm: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
+        int id;
+        String name;
+        double price;
+        int stock;
+
+        while (true) {
+            System.out.print("Nhập ID sản phẩm: ");
+            id = getIntInput();
+            if (!storeFacade.productExists(id)) {
+                break;
+            }
+            System.out.println("ID sản phẩm đã tồn tại! Vui lòng nhập ID khác.");
+        }
+
         System.out.print("Nhập tên sản phẩm: ");
-        String name = scanner.nextLine();
-        System.out.print("Nhập giá sản phẩm: ");
-        double price = scanner.nextDouble();
-        System.out.print("Nhập số lượng trong kho: ");
-        int stock = scanner.nextInt();
-        scanner.nextLine();
+        name = scanner.nextLine();
+
+        while (true) {
+            System.out.print("Nhập giá sản phẩm: ");
+            price = getDoubleInput();
+            if (price > 0) {
+                break;
+            }
+            System.out.println("Giá sản phẩm phải lớn hơn 0. Vui lòng nhập lại.");
+        }
+
+        while (true) {
+            System.out.print("Nhập số lượng trong kho: ");
+            stock = getIntInput();
+            if (stock >= 0) {
+                break;
+            }
+            System.out.println("Số lượng không được âm. Vui lòng nhập lại.");
+        }
 
         storeFacade.addProduct(id, name, price, stock);
         System.out.println("Sản phẩm đã được thêm thành công!");
     }
 
     private void removeProduct() {
-        System.out.print("Nhập ID sản phẩm cần xóa: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        storeFacade.removeOrder(id);
-        System.out.println("Sản phẩm đã được xóa thành công!");
+        int id;
+        while (true) {
+            System.out.print("Nhập ID sản phẩm cần xóa: ");
+            id = getIntInput();
+
+            if (storeFacade.productExists(id)) {
+                break;
+            }
+            System.out.println("Không tìm thấy sản phẩm có ID: " + id + ". Vui lòng nhập lại.");
+        }
+
+        System.out.print("Bạn có chắc chắn muốn xóa sản phẩm này? (Y/N): ");
+        String confirm = scanner.nextLine().trim().toLowerCase();
+        if (confirm.equals("y")) {
+            storeFacade.removeProduct(id);
+            System.out.println("Sản phẩm đã được xóa thành công!");
+        } else {
+            System.out.println("Hủy xóa sản phẩm.");
+        }
     }
 
     private void displayProducts() {
-        storeFacade.viewProducts();
+        List<Product> products = storeFacade.getAllProducts();
+        if (products.isEmpty()) {
+            System.out.println("Không có sản phẩm nào trong hệ thống.");
+        } else {
+            System.out.println("\nDanh sách sản phẩm:");
+            products.forEach(System.out::println);
+        }
+    }
+
+    private int getIntInput() {
+        while (true) {
+            try {
+                return Integer.parseInt(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.print("Lỗi: Vui lòng nhập số nguyên hợp lệ: ");
+            }
+        }
+    }
+
+    private double getDoubleInput() {
+        while (true) {
+            try {
+                return Double.parseDouble(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.print("Lỗi: Vui lòng nhập số thực hợp lệ: ");
+            }
+        }
     }
 }

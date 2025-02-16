@@ -58,8 +58,4 @@ public class ProductManager {
         products.removeIf(p -> p.getId() == id);
         productDAO.saveProducts(products);
     }
-
-    public boolean productExists(int id) {
-        return products.stream().anyMatch(p -> p.getId() == id);
-    }
 }

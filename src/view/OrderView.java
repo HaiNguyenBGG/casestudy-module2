@@ -3,13 +3,14 @@ package view;
 import facade.StoreFacade;
 import model.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class OrderView {
     private final StoreFacade storeFacade = StoreFacade.getInstance();
     private final Scanner scanner = new Scanner(System.in);
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public void showMenu() {
         while (true) {
@@ -20,8 +21,7 @@ public class OrderView {
             System.out.println("4. Sửa đơn hàng");
             System.out.println("0. Quay lại");
             System.out.print("Chọn chức năng: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice = getIntInput();
 
             switch (choice) {
                 case 1 -> createOrder();
@@ -32,69 +32,17 @@ public class OrderView {
                     System.out.println("Thoát chương trình.");
                     return;
                 }
-                default -> System.out.println("Lựa chọn không hợp lệ!");
+                default -> System.out.println("Lựa chọn không hợp lệ! Vui lòng nhập lại.");
             }
         }
     }
 
-    private void editOrder() {
-        System.out.print("Nhập ID đơn hàng cần sửa: ");
-        int orderId = scanner.nextInt();
-        scanner.nextLine();
-
-        Order order = storeFacade.getAllOrders().stream()
-                .filter(o -> o.getId() == orderId)
-                .findFirst()
-                .orElse(null);
-
-        if (order == null) {
-            System.out.println("Không tìm thấy đơn hàng!");
-            return;
-        }
-
-        System.out.println("Đơn hàng hiện tại:");
-        System.out.println(order);
-
-        System.out.print("Nhập ID sản phẩm cần sửa: ");
-        int productId = scanner.nextInt();
-        scanner.nextLine();
-
-        OrderDetail orderDetail = order.getOrderDetails().stream()
-                .filter(od -> od.getProduct().getId() == productId)
-                .findFirst()
-                .orElse(null);
-
-        if (orderDetail == null) {
-            System.out.println("Không tìm thấy sản phẩm trong đơn hàng!");
-            return;
-        }
-
-        System.out.print("Nhập số lượng mới: ");
-        int newQuantity = scanner.nextInt();
-        scanner.nextLine();
-
-        if (newQuantity <= 0) {
-            System.out.println("Số lượng phải lớn hơn 0!");
-            return;
-        }
-
-        orderDetail.setQuantity(newQuantity);
-        order.setOrderDetails(order.getOrderDetails());
-
-        storeFacade.updateOrder(order);
-
-        System.out.println("Đơn hàng đã được cập nhật!");
-    }
-
-
     private void createOrder() {
         System.out.print("Nhập ID đơn hàng: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
+        int id = getIntInput();
 
         System.out.print("Nhập ID khách hàng: ");
-        int customerId = scanner.nextInt();
-        scanner.nextLine();
+        int customerId = getIntInput();
 
         Customer customer = storeFacade.getAllCustomers().stream()
                 .filter(c -> c.getId() == customerId)
@@ -109,8 +57,7 @@ public class OrderView {
         List<OrderDetail> orderDetails = new ArrayList<>();
         while (true) {
             System.out.print("Nhập ID sản phẩm (0 để dừng): ");
-            int productId = scanner.nextInt();
-            scanner.nextLine();
+            int productId = getIntInput();
             if (productId == 0) break;
 
             Product product = storeFacade.getAllProducts().stream()
@@ -124,8 +71,7 @@ public class OrderView {
             }
 
             System.out.print("Nhập số lượng: ");
-            int quantity = scanner.nextInt();
-            scanner.nextLine();
+            int quantity = getIntInput();
 
             if (product.getStock() < quantity) {
                 System.out.println("Không đủ hàng trong kho! Số lượng còn lại: " + product.getStock());
@@ -136,8 +82,16 @@ public class OrderView {
             orderDetails.add(new OrderDetail(productId, null, product, quantity));
         }
 
-        System.out.print("Nhập ngày đặt hàng (yyyy-MM-dd): ");
-        String orderDate = scanner.nextLine();
+        String orderDate;
+        while (true) {
+            System.out.print("Nhập ngày đặt hàng (yyyy-MM-dd): ");
+            orderDate = scanner.nextLine();
+
+            if (isValidDate(orderDate)) {
+                break;
+            }
+            System.out.println("Ngày không hợp lệ! Vui lòng nhập lại.");
+        }
 
         System.out.print("Nhập phương thức thanh toán (Tiền mặt/Chuyển khoản): ");
         String paymentMethod = scanner.nextLine();
@@ -153,8 +107,7 @@ public class OrderView {
 
     private void removeOrder() {
         System.out.print("Nhập ID đơn hàng cần xóa: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
+        int id = getIntInput();
         storeFacade.removeOrder(id);
         System.out.println("Đơn hàng đã được xóa thành công!");
     }
@@ -165,6 +118,76 @@ public class OrderView {
             System.out.println("Không có đơn hàng nào trong hệ thống.");
         } else {
             orders.forEach(System.out::println);
+        }
+    }
+
+    private void editOrder() {
+        System.out.print("Nhập ID đơn hàng cần sửa: ");
+        int orderId = getIntInput();
+
+        Order order = storeFacade.getAllOrders().stream()
+                .filter(o -> o.getId() == orderId)
+                .findFirst()
+                .orElse(null);
+
+        if (order == null) {
+            System.out.println("Không tìm thấy đơn hàng!");
+            return;
+        }
+
+        System.out.println("Đơn hàng hiện tại:");
+        System.out.println(order);
+
+        System.out.print("Nhập ID sản phẩm cần sửa: ");
+        int productId = getIntInput();
+
+        OrderDetail orderDetail = order.getOrderDetails().stream()
+                .filter(od -> od.getProduct().getId() == productId)
+                .findFirst()
+                .orElse(null);
+
+        if (orderDetail == null) {
+            System.out.println("Không tìm thấy sản phẩm trong đơn hàng!");
+            return;
+        }
+
+        System.out.print("Nhập số lượng mới: ");
+        int newQuantity = getIntInput();
+
+        if (newQuantity <= 0) {
+            System.out.println("Số lượng phải lớn hơn 0!");
+            return;
+        }
+
+        orderDetail.setQuantity(newQuantity);
+        storeFacade.updateOrder(order);
+
+        System.out.println("Đơn hàng đã được cập nhật!");
+    }
+
+    private int getIntInput() {
+        while (true) {
+            try {
+                return Integer.parseInt(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.print("Lỗi: Vui lòng nhập số nguyên hợp lệ: ");
+            }
+        }
+    }
+
+    private boolean isValidDate(String date) {
+        try {
+            dateFormat.setLenient(false);
+            dateFormat.parse(date);
+
+            int month = Integer.parseInt(date.split("-")[1]);
+            if (month < 1 || month > 12) {
+                return false;
+            }
+
+            return true;
+        } catch (ParseException | NumberFormatException e) {
+            return false;
         }
     }
 }

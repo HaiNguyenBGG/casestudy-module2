@@ -79,4 +79,12 @@ public class StoreFacade {
     public void viewProducts() {
         productManager.viewProducts();
     }
+
+    public void removeProduct(int id) {
+        productManager.removeProduct(id);
+    }
+
+    public boolean productExists(int id) {
+        return productManager.productExists(id);
+    }
 }

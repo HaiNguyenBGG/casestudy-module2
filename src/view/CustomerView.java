@@ -2,6 +2,7 @@ package view;
 
 import facade.StoreFacade;
 import model.Customer;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -48,11 +49,23 @@ public class CustomerView {
         System.out.print("Nhập tên: ");
         name = scanner.nextLine();
 
-        System.out.print("Nhập email: ");
-        email = scanner.nextLine();
+        while (true) {
+            System.out.print("Nhập email: ");
+            email = scanner.nextLine();
+            if (isValidEmail(email)) {
+                break;
+            }
+            System.out.println("Email không hợp lệ! Vui lòng nhập lại.");
+        }
 
-        System.out.print("Nhập số điện thoại: ");
-        phone = scanner.nextLine();
+        while (true) {
+            System.out.print("Nhập số điện thoại: ");
+            phone = scanner.nextLine();
+            if (isValidPhone(phone)) {
+                break;
+            }
+            System.out.println("Số điện thoại không hợp lệ! Phải có 10 chữ số và bắt đầu bằng số 0.");
+        }
 
         String result = storeFacade.addCustomer(id, name, email, phone);
         System.out.println(result);
@@ -98,5 +111,13 @@ public class CustomerView {
                 System.out.print("Lỗi: Vui lòng nhập số nguyên hợp lệ: ");
             }
         }
+    }
+
+    private boolean isValidEmail(String email) {
+        return email.matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$");
+    }
+
+    private boolean isValidPhone(String phone) {
+        return phone.matches("^0[0-9]{9}$");
     }
 }
